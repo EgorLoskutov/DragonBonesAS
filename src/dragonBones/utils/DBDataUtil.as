@@ -171,7 +171,6 @@ package dragonBones.utils
 							frame.transform.skewY = prevFrame.transform.skewY + TransformUtil.formatRadian(frame.transform.skewY - prevFrame.transform.skewY);
 						}
 					}
-					
 					prevFrame = frame;
 				}
 				timeline.transformed = true;
@@ -252,7 +251,7 @@ package dragonBones.utils
 							globalTransform.copy(currentTransform);
 						}
 						
-						TransformUtil.transformToMatrix(globalTransform, helpMatrix);
+						TransformUtil.transformToMatrix(globalTransform, helpMatrix, true);
 					}
 					TransformUtil.transformPointWithParent(frame.transform, globalTransform);
 					
@@ -270,13 +269,13 @@ package dragonBones.utils
 				var currentFrame:TransformFrame = frameList[i] as TransformFrame;
 				if(currentFrame.position <= position && currentFrame.position + currentFrame.duration > position)
 				{
-					var tweenEasing:Number = currentFrame.tweenEasing;
 					if(i == frameList.length - 1 || position == currentFrame.position)
 					{
 						retult.copy(isGlobal?currentFrame.global:currentFrame.transform);
 					}
 					else
 					{
+						var tweenEasing:Number = currentFrame.tweenEasing;
 						var progress:Number = (position - currentFrame.position) / currentFrame.duration;
 						if(tweenEasing && tweenEasing != 10)
 						{
@@ -287,12 +286,12 @@ package dragonBones.utils
 						var currentTransform:DBTransform = isGlobal?currentFrame.global:currentFrame.transform;
 						var nextTransform:DBTransform = isGlobal?nextFrame.global:nextFrame.transform;
 						
-						retult.x = currentTransform.x +  (nextTransform.x - currentTransform.x) * progress;
-						retult.y = currentTransform.y +  (nextTransform.y - currentTransform.y) * progress;
-						retult.skewX = TransformUtil.formatRadian(currentTransform.skewX +  (nextTransform.skewX - currentTransform.skewX) * progress);
-						retult.skewY = TransformUtil.formatRadian(currentTransform.skewY +  (nextTransform.skewY - currentTransform.skewY) * progress);
-						retult.scaleX = currentTransform.scaleX +  (nextTransform.scaleX - currentTransform.scaleX) * progress;
-						retult.scaleY = currentTransform.scaleY +  (nextTransform.scaleY - currentTransform.scaleY) * progress;
+						retult.x = currentTransform.x + (nextTransform.x - currentTransform.x) * progress;
+						retult.y = currentTransform.y + (nextTransform.y - currentTransform.y) * progress;
+						retult.skewX = TransformUtil.formatRadian(currentTransform.skewX + (nextTransform.skewX - currentTransform.skewX) * progress);
+						retult.skewY = TransformUtil.formatRadian(currentTransform.skewY + (nextTransform.skewY - currentTransform.skewY) * progress);
+						retult.scaleX = currentTransform.scaleX + (nextTransform.scaleX - currentTransform.scaleX) * progress;
+						retult.scaleY = currentTransform.scaleY + (nextTransform.scaleY - currentTransform.scaleY) * progress;
 					}
 					break;
 				}
